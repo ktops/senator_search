@@ -377,9 +377,8 @@ def party_breakdown_whole():
     fig = {
     'data': [{'labels': ['Republican','Democrat','Independent'],
               'values': [reps,dems,ind],
-              # 'color': ['rgb(255,0,0)', 'rgb(0,0,255)', 'rgb(255,255,102)'],#######################################################################
               'type': 'pie'}],
-    'layout': {'title': 'Race Breakdown of the US Senate'}
+    'layout': {'title': 'Party Breakdown of the US Senate'}
     }
 
     py.plot(fig)
@@ -581,7 +580,7 @@ def sex_breakdown_whole():
     'data': [{'labels': ['Male','Female'],
               'values': [male,female],
               'type': 'pie'}],
-    'layout': {'title': 'Race Breakdown of the US Senate'}
+    'layout': {'title': 'Sex Breakdown of the US Senate'}
     }
 
     py.plot(fig)
