@@ -186,6 +186,8 @@ def get_senators_from_state(state_abbr):
                     sen.sex = 'Female'
                 elif sen.last_name == 'Harris':
                     sen.sex = 'Female'
+                elif sen.last_name == 'Cantwell':
+                    sen.sex = 'Female'
 
         # from race page
         race_page_info = race_page_soup.find('div', class_='contenttext_generic')
@@ -781,7 +783,7 @@ if __name__ == "__main__":
             print('To see a race breakdown of the members of senate (spoiler alert - there\'s a lot of white people!!), please type \'race breakdown\'' + '\n')
             print('To open the contact list for all the current senators, please type \'contact list\'' + '\n')
             print('To search for senators by state, please type in a state abbreviation. (ex: \'mi\' = Michigan)')
-            print('This will give you a list of senators from that state, along with some information on them.')
+            print('This will give you a list of senators from that state, along with some information on them.' + '\n')
             print('To exit the program, please type \'exit\'')
 
         elif user_input == 'party breakdown whole':
