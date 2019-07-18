@@ -68,14 +68,14 @@ class Senator:
 
         # change to equal defaults, then foloow NationalSite way to input the data when it's there
         self.state = 'No State Available'
-        self.age = 'No Age Available'
+        # self.age = 'No Age Available'
         self.sex = 'Male'
         self.party = 'No Party Available'
         self.website = 'No Website Available'
-        self.contact_info_office_address = 'No Contact Info Available'
-        self.contact_info_phone = 'No Contact Info Available'
-        self.contact_info_online = 'No Contact Info Available'
-        self.seat = 'No Seat Info Available'
+        # self.contact_info_office_address = 'No Contact Info Available'
+        # self.contact_info_phone = 'No Contact Info Available'
+        # self.contact_info_online = 'No Contact Info Available'
+        # self.seat = 'No Seat Info Available'
         self.race = 'Caucasian'
 
     def __str__(self):
@@ -235,106 +235,106 @@ def get_full_senator_list():
     return full_sen_list
 
 # creating the database and putting collected data into it
-sen_list = get_full_senator_list()
-def init_db():
-    # creating new database
-    conn = sqlite3.connect('senators.db')
-    cur = conn.cursor()
-
-    # Drop tables
-    statement = '''
-        DROP TABLE IF EXISTS 'Senators';
-    '''
-    cur.execute(statement)
-    conn.commit()
-
-    statement = '''
-        DROP TABLE IF EXISTS 'States';
-    '''
-    cur.execute(statement)
-    conn.commit()
-
-    # make new table
-    statement = '''
-        CREATE TABLE 'Senators' (
-            'Id' INTEGER PRIMARY KEY AUTOINCREMENT,
-            'FirstName' TEXT NOT NULL,
-            'LastName' TEXT NOT NULL,
-            'StateId' INTEGER,
-            'StateAbbr' TEXT,
-            'Sex' TEXT,
-            'Race' TEXT,
-            'Party' TEXT NOT NULL,
-            'Website' TEXT
-        );
-    '''
-    cur.execute(statement)
-    conn.commit()
-
-    statement = '''
-        CREATE TABLE 'States' (
-            'Id' INTEGER PRIMARY KEY AUTOINCREMENT,
-            'StateName' TEXT NOT NULL,
-            'StateAbbr' TEXT NOT NULL
-        );
-    '''
-    cur.execute(statement)
-    conn.commit()
-
-    # populating the database
-    complete_sen_list = []
-    for i in sen_list:
-        if len(i) == 2:
-            complete_sen_list.append(i[0])
-            complete_sen_list.append(i[1])
-        else:
-            complete_sen_list.append(i[0])
-
-    for i in complete_sen_list:
-        insertion = (None, i.first_name, i.last_name, None, i.state, i.sex, i.race, i.party, i.website)
-        statement = 'INSERT INTO \'Senators\' '
-        statement += 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
-        cur.execute(statement, insertion)
-    conn.commit()
-
-    for i in state_abbr_dict:
-        state_abbr = i
-        state_name = state_abbr_dict[i]
-
-        insertion = (None, state_name, state_abbr.upper())
-        statement = 'INSERT INTO \'States\' '
-        statement += 'VALUES (?, ?, ?)'
-        cur.execute(statement, insertion)
-    conn.commit()
-
-    conn.close()
-
-# getting the right foreign keys and such
-def states_mapping():
-    conn = sqlite3.connect('senators.db')
-    cur = conn.cursor()
-
-    statement = 'SELECT * FROM States'
-    cur.execute(statement)
-    state_maps = {}
-
-    for state in cur:
-        state_id = state[0]
-        abbr = state[2]
-        state_maps[abbr] = state_id
-    conn.commit()
-
-    for i in state_maps:
-        state = i
-        id = state_maps[i]
-        insertion = (id, state)
-        statement = 'UPDATE Senators '
-        statement += 'SET StateId = ? '
-        statement += 'WHERE StateAbbr = ?'
-        cur.execute(statement, insertion)
-        conn.commit()
-
-    conn.close()
+# sen_list = get_full_senator_list()
+# def init_db():
+#     # creating new database
+#     conn = sqlite3.connect('senators.db')
+#     cur = conn.cursor()
+#
+#     # Drop tables
+#     statement = '''
+#         DROP TABLE IF EXISTS 'Senators';
+#     '''
+#     cur.execute(statement)
+#     conn.commit()
+#
+#     statement = '''
+#         DROP TABLE IF EXISTS 'States';
+#     '''
+#     cur.execute(statement)
+#     conn.commit()
+#
+#     # make new table
+#     statement = '''
+#         CREATE TABLE 'Senators' (
+#             'Id' INTEGER PRIMARY KEY AUTOINCREMENT,
+#             'FirstName' TEXT NOT NULL,
+#             'LastName' TEXT NOT NULL,
+#             'StateId' INTEGER,
+#             'StateAbbr' TEXT,
+#             'Sex' TEXT,
+#             'Race' TEXT,
+#             'Party' TEXT NOT NULL,
+#             'Website' TEXT
+#         );
+#     '''
+#     cur.execute(statement)
+#     conn.commit()
+#
+#     statement = '''
+#         CREATE TABLE 'States' (
+#             'Id' INTEGER PRIMARY KEY AUTOINCREMENT,
+#             'StateName' TEXT NOT NULL,
+#             'StateAbbr' TEXT NOT NULL
+#         );
+#     '''
+#     cur.execute(statement)
+#     conn.commit()
+#
+#     # populating the database
+#     complete_sen_list = []
+#     for i in sen_list:
+#         if len(i) == 2:
+#             complete_sen_list.append(i[0])
+#             complete_sen_list.append(i[1])
+#         else:
+#             complete_sen_list.append(i[0])
+#
+#     for i in complete_sen_list:
+#         insertion = (None, i.first_name, i.last_name, None, i.state, i.sex, i.race, i.party, i.website)
+#         statement = 'INSERT INTO \'Senators\' '
+#         statement += 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+#         cur.execute(statement, insertion)
+#     conn.commit()
+#
+#     for i in state_abbr_dict:
+#         state_abbr = i
+#         state_name = state_abbr_dict[i]
+#
+#         insertion = (None, state_name, state_abbr.upper())
+#         statement = 'INSERT INTO \'States\' '
+#         statement += 'VALUES (?, ?, ?)'
+#         cur.execute(statement, insertion)
+#     conn.commit()
+#
+#     conn.close()
+#
+# # getting the right foreign keys and such
+# def states_mapping():
+#     conn = sqlite3.connect('senators.db')
+#     cur = conn.cursor()
+#
+#     statement = 'SELECT * FROM States'
+#     cur.execute(statement)
+#     state_maps = {}
+#
+#     for state in cur:
+#         state_id = state[0]
+#         abbr = state[2]
+#         state_maps[abbr] = state_id
+#     conn.commit()
+#
+#     for i in state_maps:
+#         state = i
+#         id = state_maps[i]
+#         insertion = (id, state)
+#         statement = 'UPDATE Senators '
+#         statement += 'SET StateId = ? '
+#         statement += 'WHERE StateAbbr = ?'
+#         cur.execute(statement, insertion)
+#         conn.commit()
+#
+#     conn.close()
 
 # functions for making plots
 def party_breakdown_whole():
@@ -764,8 +764,8 @@ def race_breakdown():
     conn.close()
 
 # MAIN PART OF CODE:
-init_db()
-states_mapping()
+# init_db()
+# states_mapping()
 
 # user interactive part
 if __name__ == "__main__":
