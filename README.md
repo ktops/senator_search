@@ -1,5 +1,4 @@
 # senator_search
-206 final project
 
 DATA SOURCES USED:
 No API's were used in this project, I simply scraped my information from 3 websites by way of crawling:
